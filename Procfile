@@ -1,3 +1,2 @@
-$ web: gunicorn gettingstarted.wsgi
-$ web: gunicorn app:yourdiscuss
+web: gunicorn myproject.wsgi
 
