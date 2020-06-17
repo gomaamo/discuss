@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% extends "blog/blog_base.html" %}
+{% load static %}
+
+{% block js %}
+    {% static 'js/aign_up.js' %}
+{% endblock %}
+
+{% block title %}
+    DISCUSS | Sign up
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+    <h1 style="text-align: center;">Join DISCUSS!</h1>
+    <br>
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class="btn btn-info form-control" value="Sign up">
+      </form>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% extends "blog/blog_base.html" %}
+{% load static %}
+
+{% block js %}
+    {% static 'js/post_form.js' %}
+{% endblock %}
+
+{% block title %}
+    {% if not form.instance.pk %}
+        DISCUSS | Create Post
+    {% else %}
+        DISCUSS | Edit Post
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="container jumbotron">
+        <h1 style="text-align: center;">
+            {% if not form.instance.pk %}
+                DISCUSS | Create Post
+            {% else %}
+                DISCUSS | Edit Post
+            {% endif %}
+        </h1>
+
+        <form method="POST">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" class="btn btn-dark form-control" value="Post">
+        </form>
+        {% if form.instance.pk %}
+            <br>
+            <a href="{% url 'detail' pk=post.id %}" class="btn btn-secondary form-control">Cancel</a>
+        {% else %}
+        <br>
+        <a href="{% url 'index' %}" class="btn btn-secondary form-control">Cancel</a>
+        {% endif %}
+    </div>
+{% endblock %}

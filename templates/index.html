@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% block title %}
+    DISCUSS!
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to DISCUSS!</h1>
+    <p class="lead container">Talk, share your ideas and contact others!</p>
+    <hr class="my-4">
+    
+    <div class="float-right">
+        <form class="form-inline" method="GET" action="{% url 'index' %}">
+            <a class="btn btn-dark my-2 my-sm-0" href="{% url 'post' %}">Create Post</a> &nbsp;&nbsp;
+            <input id="searchbar" name="search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <input class="btn btn-secondary my-2 my-sm-0" type="submit" value="Search">
+        </form> 
+    </div>
+    <br><br>
+
+    <div>
+        {% if results %}
+            {% for post in results %}
+            <h5><a href="{% url 'detail' pk=post.id %}">{{post.title}}</a></h5>
+            <h6 class="container">{{post.content}}</h6>
+            <br>
+            <p>Posted by <a href="{% url 'user' pk=post.user.id %}">{{post.user}}</a> | {{post.date}} | <a href="{% url 'detail' pk=post.id %}">Comments ({{post.comments.count}})</a></p>
+            <hr>
+            {% endfor %}
+        {% else %}
+            {% if posts %}
+                {% for post in posts %}
+                    <h5><a href="{% url 'detail' pk=post.id %}">{{post.title}}</a></h5>
+                    <h6 class="container">{{post.content}}</h6>
+                    <br>
+                    <p>Posted by <a href="{% url 'user' pk=post.user.id %}">{{post.user}}</a> | {{post.date}} | <a href="{% url 'detail' pk=post.id %}">Comments ({{post.comments.count}})</a></p>
+                    <hr>
+                {% endfor %}
+            {% else %}
+                    <p class="container">No posts yet! :/</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

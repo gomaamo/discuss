@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends "blog/blog_base.html" %}
+
+{% block title %}
+    DISCUSS | Delete this post?
+{% endblock %}
+
+{% block body %}
+    <div class=" jumbotron">
+        <h1>Delete "{{post.title}}"?</h1>
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-danger" value="Delete">
+            <a class="btn btn-secondary" href="{% url 'detail' pk=post.id %}">Cancel</a>
+        </form>
+    </div>
+{% endblock %}

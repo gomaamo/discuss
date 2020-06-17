@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% extends "blog/blog_base.html" %}
+
+{% block title %}
+    DISCUSS | {{post.title}}
+{% endblock %}
+
+{% block body %}
+    <div class="jumbotron" >
+        <h2>{{post.title}}</h2>
+        <h6 class="container">{{post.content}}</h6>
+        <br>
+        <p>
+            Posted by <b><a href="{% url 'user' pk=post.user.id %}">{{post.user}}</a></b> | {{post.date}}
+            {% if user.is_authenticated and post.user == user %}
+                &nbsp;
+                <a href="{%url 'edit' pk=post.id %}"><span class="badge badge-secondary" >Edit</span></a>
+                <a href="{% url 'delete' pk=post.id %}"><span class="badge badge-danger" float-right>Delete</span></a>
+            {% endif %}
+        </p>
+        <hr>
+
+        <form method="POST" class="form-inline">
+            {% csrf_token %}
+            {{form.as_p}}
+            &nbsp;&nbsp;
+            {% if user.is_authenticated %}
+                <input type="submit" class="btn btn-secondary" value="Comment">
+            {% else %}
+                <a class="btn btn-secondary" href="{% url 'login' %}">Comment</a>
+            {% endif %}
+        </form>
+        <hr>
+
+        {% if post.comments.all.count != 0 %}
+            {% for comment in post.comments.all %}
+                <p>
+                    <a href="{% url 'user' pk=comment.user.id %}">
+                        {% if comment.user == post.user %}
+                            <b>@{{comment.user}}</b>
+                        {% else %}
+                            @{{comment.user}}
+                        {% endif %}
+                    </a>: {{comment.content}} <br>
+                    <small class="container">
+                        {{comment.date}}
+                        {% if user.is_authenticated and comment.user == user %}
+                        &nbsp;
+                        <!-- <a href="{%url 'edit' pk=post.id %}"><span class="badge badge-secondary" >Edit</span></a> -->
+                        <a href="{% url 'delete_comment' pk=comment.id %}"><span class="badge badge-danger" float-right>Delete</span></a>
+                        {% endif %}
+                    </small>
+                </p>
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p class="container">No comments yet.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        document.getElementsByTagName("label")[0].innerText = "";
+    </script>
+{% endblock %}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% extends "blog/blog_base.html" %}
+
+{% block title %}
+    DISCUSS | {{user.username}}
+{% endblock %}
+
+{% block body %}
+    <div class="jumbotron" >
+        <h1 style="text-align: center;">{{user.username}}</h1>
+        
+        {% if user.posts.count != 0 %}
+            {% for post in user.posts.all|dictsortreversed:"date" %}
+                <h5><a href="{% url 'detail' pk=post.id %}">{{post.title}}</a></h5>
+                <h6 class="container">{{post.content}}</h6>
+                <br>
+                <p>{{post.date}} | <a href="{% url 'detail' pk=post.id %}">Comments ({{post.comments.count}})</a></p>
+                <hr>
+            {% endfor %}
+        {% else %}
+                <p class="container">No posts yet! :/</p>
+        {% endif %}
+{% endblock %}
