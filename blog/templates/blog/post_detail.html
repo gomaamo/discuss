@@ -27,6 +27,7 @@
             {% if user.is_authenticated %}
                 <input type="submit" class="btn btn-secondary" value="Comment">
             {% else %}
+                <script>document.getElementById("id_content").setAttribute("disabled", true);</script>
                 <a class="btn btn-secondary" href="{% url 'login' %}">Comment</a>
             {% endif %}
         </form>

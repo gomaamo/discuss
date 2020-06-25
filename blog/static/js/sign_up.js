@@ -3,7 +3,9 @@ var input = document.getElementsByTagName("input");
 var username = document.getElementById("id_username");
 var pw1 = document.getElementById("id_password1");
 var pw2 = document.getElementById("id_password2");
+var helptext = document.getElementsByClassName("helptext");
 for(var i=0; i<3; i++){
+    helptext[i].innerText = "";
     label[i].innerText = "";
     input[i].setAttribute("class", "form-control");
 }
