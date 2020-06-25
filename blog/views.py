@@ -40,7 +40,6 @@ class AboutView(TemplateView):
     template_name = "blog/about.html"
 
 class PostCreateView(LoginRequiredMixin, CreateView):
-    login_url = "/login/"
     model = models.Post
     form_class = forms.PostForm
     template_name = "blog/post_form.html"
@@ -82,12 +81,10 @@ class PostDetailView(FormMixin, DetailView):
         return super(PostDetailView, self).form_valid(form)
 
 class PostEditView(LoginRequiredMixin, UpdateView):
-    login_url = "/login/"
     model = models.Post
     form_class = forms.PostForm
 
 class PostDeleteView(LoginRequiredMixin, DeleteView):
-    login_url = "/login/"
     model = models.Post
     success_url = reverse_lazy("index")
 
@@ -101,7 +98,7 @@ class UserCreateView(CreateView):
     success_url = reverse_lazy("login")
     template_name = 'blog/signup.html'    
 
-@login_required(login_url="/login/")
+@login_required(login_url="/accounts/login/")
 def comment_delete(request, pk):
     comment = get_object_or_404(models.Comment, pk=pk)
     post_pk = comment.post.pk
