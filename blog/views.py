@@ -20,7 +20,12 @@ class IndexView(ListView):
     def get_queryset(self):
         query = self.request.GET.get("search", None)
         if query:
-            self.queryset = models.Post.objects.filter(title__contains=query)
+            q1 = models.Post.objects.filter(title__contains=query)
+            q2 = models.Post.objects.filter(content__contains=query)
+            if q1:
+                self.queryset = q1
+            else:
+                self.queryset = q2
         return super().get_queryset()
 
     def get_context_data(self, **kwargs):
