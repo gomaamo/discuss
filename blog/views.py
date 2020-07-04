@@ -89,7 +89,7 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("index")
 
 class UserDetailView(DetailView):
-    context_object_name = "user"
+    context_object_name = "profile"
     model = User
     template_name = "blog/user_detail.html"
    

@@ -2,15 +2,15 @@
 {% extends "blog/blog_base.html" %}
 
 {% block title %}
-    DISCUSS | {{user.username}}
+    DISCUSS | {{profile.username}}
 {% endblock %}
 
 {% block body %}
     <div class="jumbotron" >
-        <h1 style="text-align: center;">{{user.username}}</h1>
+        <h1 style="text-align: center;">{{profile.username}}</h1>
         
-        {% if user.posts.count != 0 %}
-            {% for post in user.posts.all|dictsortreversed:"date" %}
+        {% if profile.posts.count != 0 %}
+            {% for post in profile.posts.all|dictsortreversed:"date" %}
                 <h5><a href="{% url 'detail' pk=post.id %}">{{post.title}}</a></h5>
                 <h6 class="container">{{post.content}}</h6>
                 <br>
