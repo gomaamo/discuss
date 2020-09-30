@@ -26,9 +26,9 @@ MEDIA_DIR = os.path.join(BASE_DIR, "media")
 SECRET_KEY = '4!_p%0(ng1l(!%(v=6n*$oonbx1=t%uxfnmgpm3%6dtwg5&rit'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://blooming-reef-38376.herokuapp.com/']
 
 
 # Application definition
